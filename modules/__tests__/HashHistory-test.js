@@ -157,6 +157,12 @@ describeHistory('a hash history', () => {
       })
     })
 
+    describeGo('hash does not update', () => {
+      it('blocks a hash transition', (done) => {
+        TestSequences.HashChangeBlock(history, done)
+      })
+    })
+
     describeGo('clicking the back button (goBack)', () => {
       it('does not update the location', (done) => {
         TestSequences.DenyGoBack(history, done)
