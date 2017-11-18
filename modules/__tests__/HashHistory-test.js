@@ -168,6 +168,12 @@ describeHistory('a hash history', () => {
         TestSequences.DenyGoForward(history, done)
       })
     })
+
+    describeGo('handling manual hash change', () => {
+      it('navigates back to previousely blocked location', (done) => {
+        TestSequences.DenyManualTransition(history, done)
+      })
+    })
   })
 
   describe('a transition hook', () => {

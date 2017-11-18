@@ -156,14 +156,18 @@ const createHashHistory = (props = {}) => {
 
     let fromIndex = allPaths.lastIndexOf(createPath(fromLocation))
 
-    if (fromIndex === -1)
-      fromIndex = 0
+    forceNextPop = true
 
-    const delta = toIndex - fromIndex
+    if (fromIndex === -1) {
+      // replace manually entered hash with current history location
+      replaceHashPath(createPath(toLocation))
+    } else {
+      const delta = toIndex - fromIndex
 
-    if (delta) {
-      forceNextPop = true
-      go(delta)
+      if (delta) {
+        forceNextPop = true
+        go(delta)
+      }
     }
   }
 
@@ -274,14 +278,18 @@ const createHashHistory = (props = {}) => {
     go(1)
 
   let listenerCount = 0
+  let listenerAdded = false
 
   const checkDOMListeners = (delta) => {
     listenerCount += delta
 
-    if (listenerCount === 1) {
+    // prevent adding another listener when listener count is 2 and decreases by 1, giving 1 as result
+    if (listenerCount === 1 && !listenerAdded) {
       addEventListener(window, HashChangeEvent, handleHashChange)
-    } else if (listenerCount === 0) {
+      listenerAdded = true
+    } else if (listenerCount === 0 && listenerAdded) {
       removeEventListener(window, HashChangeEvent, handleHashChange)
+      listenerAdded = false
     }
   }
 
