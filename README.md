@@ -235,6 +235,8 @@ const history = createBrowserHistory({
 })
 ```
 
+It's also possible to change this setting using `history.setForceRefresh(true)`.
+
 ### Modifying the Hash Type in createHashHistory
 
 By default `createHashHistory` uses a leading slash in hash-based URLs. You can use the `hashType` option to use a different hash formatting.
