@@ -182,6 +182,13 @@ function createHashHistory(props = {}) {
       state === undefined,
       'Hash history cannot push state; it is ignored'
     );
+    if (path && typeof path !== 'string') {
+      warning(
+        typeof path.state === 'undefined',
+        'Hash history cannot push state; it is ignored'
+      );
+      path.state = undefined;
+    }
 
     const action = 'PUSH';
     const location = createLocation(
@@ -233,6 +240,13 @@ function createHashHistory(props = {}) {
       state === undefined,
       'Hash history cannot replace state; it is ignored'
     );
+    if (path && typeof path !== 'string') {
+      warning(
+        typeof path.state === 'undefined',
+        'Hash history cannot replace state; it is ignored'
+      );
+      path.state = undefined;
+    }
 
     const action = 'REPLACE';
     const location = createLocation(

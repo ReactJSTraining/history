@@ -46,6 +46,9 @@ describe('a hash history', () => {
       it('calls change listeners with the new location and emits a warning', done => {
         TestSequences.PushStateWarning(history, done);
       });
+      it('calls change listeners with the new location adn emits a warning (one arg)', done => {
+        TestSequences.PushOneArgStateWarning(history, done);
+      })
     });
 
     describe('push with no pathname', () => {
@@ -87,6 +90,9 @@ describe('a hash history', () => {
     describe('replace state', () => {
       it('calls change listeners with the new location and emits a warning', done => {
         TestSequences.ReplaceStateWarning(history, done);
+      });
+      it('calls change listeners with the new location and emits a warning (one arg)', done => {
+        TestSequences.ReplaceOneArgStateWarning(history, done);
       });
     });
 
