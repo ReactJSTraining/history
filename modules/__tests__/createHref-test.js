@@ -24,6 +24,37 @@ describe('a browser history', () => {
     });
   });
 
+  describe('with trailing slashes removed', () => {
+    let history;
+    beforeEach(() => {
+      history = createBrowserHistory();
+    });
+
+    it('removes the trailing slashes from the url', () => {
+      const href = history.createHref(
+        {
+          pathname: '/',
+          search: '?the=query',
+          hash: '#the-hash'
+        },
+        false
+      );
+
+      expect(href).toEqual('/?the=query#the-hash');
+    });
+
+    it('removes the trailing slashes from the url', () => {
+      const href = history.createHref(
+        {
+          pathname: '/some-path/'
+        },
+        false
+      );
+
+      expect(href).toEqual('/some-path');
+    });
+  });
+
   describe('with a basename', () => {
     let history;
     beforeEach(() => {

@@ -43,6 +43,7 @@ function createBrowserHistory(props = {}) {
   const needsHashChangeListener = !supportsPopStateOnHashChange();
 
   const {
+    trailingSlash = true,
     forceRefresh = false,
     getUserConfirmation = getConfirmation,
     keyLength = 6
@@ -148,8 +149,14 @@ function createBrowserHistory(props = {}) {
 
   // Public interface
 
-  function createHref(location) {
-    return basename + createPath(location);
+  function createHref(location, trailingSlash) {
+    const url = basename + createPath(location);
+
+    if (trailingSlash === false) {
+      return stripTrailingSlash(url);
+    }
+
+    return url;
   }
 
   function push(path, state) {
@@ -173,7 +180,7 @@ function createBrowserHistory(props = {}) {
       ok => {
         if (!ok) return;
 
-        const href = createHref(location);
+        const href = createHref(location, trailingSlash);
         const { key, state } = location;
 
         if (canUseHistory) {
@@ -223,7 +230,7 @@ function createBrowserHistory(props = {}) {
       ok => {
         if (!ok) return;
 
-        const href = createHref(location);
+        const href = createHref(location, trailingSlash);
         const { key, state } = location;
 
         if (canUseHistory) {
