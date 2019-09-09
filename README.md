@@ -203,6 +203,8 @@ unblock();
 
 **Note:** You'll need to provide a `getUserConfirmation` function to use this feature with `createMemoryHistory` (see below).
 
+**Note:** `history.block` ( with the default confirmation dialog) does not work correctly on iOS, at least from version 12 on. The problem is that Safari on iOS does not display the dialog when calling `window.confirm` while navigating away from a page (via the browser's navigation buttons). Instead, `window.confirm` just returns `false`. For the `history` object this just indicates that the user did not want to navigate away. This can be solved by using a customized confirm dialog that does not use `window.confirm`, but for example a `react-modal` dialog instead.
+
 ### Customizing the Confirm Dialog
 
 By default, [`window.confirm`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm) is used to show prompt messages to the user. If you need to override this behavior (or if you're using `createMemoryHistory`, which doesn't assume a DOM environment), provide a `getUserConfirmation` function when you create your history object.
