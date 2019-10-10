@@ -126,13 +126,19 @@ function createBrowserHistory(props = {}) {
     // keeping a list of keys we've seen in sessionStorage.
     // Instead, we just default to 0 for keys we don't know.
 
-    let toIndex = allKeys.indexOf(toLocation.key);
+    var toIndex = allKeys.indexOf(toLocation.key);
 
-    if (toIndex === -1) toIndex = 0;
-
-    let fromIndex = allKeys.indexOf(fromLocation.key);
-
-    if (fromIndex === -1) fromIndex = 0;
+    var fromIndex = allKeys.indexOf(fromLocation.key);
+    
+    // At the first time after page reload, toIndex = 0 and fromIndex = -1
+    // If set toIndex = 0, result of delta is toIndex - fromIndex = 0
+    // and then revert not work
+    // that mean address bar doesn't change back to "toLocation"
+    // so we ignore this case
+    if (!(toIndex === 0 && fromIndex === -1)) {
+      if (toIndex === -1) toIndex = 0;
+      if (fromIndex === -1) fromIndex = 0;
+    }
 
     const delta = toIndex - fromIndex;
 
