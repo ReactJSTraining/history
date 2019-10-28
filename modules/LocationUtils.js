@@ -15,11 +15,14 @@ export function createLocation(path, state, key, currentLocation) {
 
     if (location.pathname === undefined) location.pathname = '';
 
-    if (location.search) {
-      if (location.search.charAt(0) !== '?')
-        location.search = '?' + location.search;
-    } else {
+    if (!location.search || location.search === '?') {
       location.search = '';
+    } else if (
+      typeof location.search === 'string' &&
+      location.search.charAt(0) !== '?'
+    ) {
+      // Prepends obligatory "?" to the search string if it's missed
+      location.search = '?' + location.search;
     }
 
     if (location.hash) {

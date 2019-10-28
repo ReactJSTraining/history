@@ -141,4 +141,47 @@ describe('createLocation', () => {
       expect(Object.keys(location)).not.toContain('key');
     });
   });
+
+  describe('search parameters', () => {
+    describe('given as a string', () => {
+      it("removes redundant '?' from search", () => {
+        expect(createLocation('/the/path?')).toMatchObject({
+          pathname: '/the/path',
+          search: ''
+        });
+
+        expect(createLocation('/the/path?#the-hash')).toMatchObject({
+          pathname: '/the/path',
+          search: '',
+          hash: '#the-hash'
+        });
+      });
+    });
+
+    describe('given as an object', () => {
+      it("removes redundant '?' from search", () => {
+        expect(
+          createLocation({
+            pathname: '/the/path',
+            search: '?'
+          })
+        ).toMatchObject({
+          pathname: '/the/path',
+          search: ''
+        });
+      });
+
+      it("prepends '?' to search if it's missed", () => {
+        expect(
+          createLocation({
+            pathname: '/the/path',
+            search: 'the=query'
+          })
+        ).toMatchObject({
+          pathname: '/the/path',
+          search: '?the=query'
+        });
+      });
+    });
+  });
 });
