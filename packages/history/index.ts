@@ -97,7 +97,7 @@ export interface PathPieces {
  *
  * @typeParam S - The type for the state object (optional)
  */
-export interface LocationPieces<S extends State = State> extends PathPieces {
+export interface LocationPieces<S extends object = object> extends PathPieces {
   /**
    * Additional state tied to this location.
    *
@@ -121,7 +121,7 @@ export interface LocationPieces<S extends State = State> extends PathPieces {
  * @typeParam S - The type for the state object (optional)
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/location
  */
-export interface Location<S extends State = State> {
+export interface Location<S extends object = object> {
   /**
    * The URL pathname, beginning with a /.
    *
@@ -148,7 +148,7 @@ export interface Location<S extends State = State> {
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/API/History/state
    */
-  state: S;
+  state: S | null;
 
   /**
    * A unique string associated with this location. May be used to safely store
@@ -163,7 +163,7 @@ export interface Location<S extends State = State> {
  *
  * @typeParam S - The type for the location's state object (optional)
  */
-export interface Update<S extends State = State> {
+export interface Update<S extends object = object> {
   /**
    * The action that triggered the change.
    */
@@ -180,7 +180,7 @@ export interface Update<S extends State = State> {
  *
  * @typeParam S - The type for the location's state object (optional)
  */
-export interface Listener<S extends State = State> {
+export interface Listener<S extends object = object> {
   (update: Update<S>): void;
 }
 
@@ -190,7 +190,7 @@ export interface Listener<S extends State = State> {
  *
  * @typeParam S - The type for the location's state object (optional)
  */
-export interface Transition<S extends State = State> extends Update<S> {
+export interface Transition<S extends object = object> extends Update<S> {
   /**
    * Retries the update to the current location.
    */
@@ -202,7 +202,7 @@ export interface Transition<S extends State = State> extends Update<S> {
  *
  * @typeParam S - The type for the location's state object (optional)
  */
-export interface Blocker<S extends State = State> {
+export interface Blocker<S extends object = object> {
   (tx: Transition<S>): void;
 }
 
@@ -221,7 +221,7 @@ export type To = Path | PathPieces;
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/history
  */
-export interface History<S extends State = State> {
+export interface History<S extends object = object> {
   /**
    * The last action that modified the current location. This will always be
    * Action.Pop when a history instance is first created. This value is mutable.
@@ -249,7 +249,7 @@ export interface History<S extends State = State> {
    * @param to - The new URL
    * @param state - Data to associate with the new location
    */
-  push(to: To, state?: State): void;
+  push(to: To, state?: object): void;
 
   /**
    * Replaces the current location in the history stack with a new one.  The
@@ -258,7 +258,7 @@ export interface History<S extends State = State> {
    * @param to - The new URL
    * @param state - Data to associate with the new location
    */
-  replace(to: To, state?: State): void;
+  replace(to: To, state?: object): void;
 
   /**
    * Navigates `n` entries backward/forward in the history stack relative to the
@@ -303,7 +303,7 @@ export interface History<S extends State = State> {
  * browser environment. This is the standard for most web apps and provides the
  * cleanest URLs the browser's address bar.
  */
-export interface BrowserHistory<S extends State = State> extends History<S> {}
+export interface BrowserHistory<S extends object = object> extends History<S> {}
 
 /**
  * A hash history stores the current location in the fragment identifier portion
@@ -314,14 +314,14 @@ export interface BrowserHistory<S extends State = State> extends History<S> {}
  * shared hosting environments that do not provide fine-grained controls over
  * which pages are served at which URLs.
  */
-export interface HashHistory<S extends State = State> extends History<S> {}
+export interface HashHistory<S extends object = object> extends History<S> {}
 
 /**
  * A memory history stores locations in memory. This is useful in stateful
  * environments where there is no web browser, such as node tests or React
  * Native.
  */
-export interface MemoryHistory<S extends State = State> extends History<S> {
+export interface MemoryHistory<S extends object = object> extends History<S> {
   index: number;
 }
 
