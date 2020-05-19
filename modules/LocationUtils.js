@@ -31,21 +31,8 @@ export function createLocation(path, state, key, currentLocation) {
     if (state !== undefined && location.state === undefined)
       location.state = state;
   }
-
-  try {
-    location.pathname = decodeURI(location.pathname);
-  } catch (e) {
-    if (e instanceof URIError) {
-      throw new URIError(
-        'Pathname "' +
-          location.pathname +
-          '" could not be decoded. ' +
-          'This is likely caused by an invalid percent-encoding.'
-      );
-    } else {
-      throw e;
-    }
-  }
+  
+  validateSegmentsCanBeDecoded(location.pathname);
 
   if (key) location.key = key;
 
@@ -67,6 +54,27 @@ export function createLocation(path, state, key, currentLocation) {
   }
 
   return location;
+}
+
+function validateSegmentsCanBeDecoded(pathname){
+  var segments = pathname.split('/');
+  
+  for(var i = 0; i < segments.length; ++i) {
+    try {
+      decodeURIComponent(segments[i]);
+    } catch (e) {
+      if (e instanceof URIError) {
+        throw new URIError(
+          'Pathname "' +
+          pathname +
+          '" has segment(s) that cannot be decoded. ' +
+          'This is likely caused by an invalid percent-encoding.'
+        );
+      } else {
+        throw e;
+      }
+    }
+  }
 }
 
 export function locationsAreEqual(a, b) {

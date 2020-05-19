@@ -8,7 +8,7 @@ export default function(history, done) {
       expect(() => {
         history.replace('/hello%');
       }).toThrow(
-        'Pathname "/hello%" could not be decoded. This is likely caused by an invalid percent-encoding.'
+        'Pathname "/hello%" has segment(s) that cannot be decoded. This is likely caused by an invalid percent-encoding.'
       );
     }
   ];
