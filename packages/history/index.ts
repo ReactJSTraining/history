@@ -29,7 +29,7 @@ export enum Action {
  * A URL path including the pathname, search string, and hash. No URL protocol
  * or domain information should be part of a path.
  */
-export type Path = string;
+export type Path = string | number;
 
 /**
  * A URL pathname, beginning with a /.
