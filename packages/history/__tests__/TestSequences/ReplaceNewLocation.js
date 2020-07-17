@@ -20,6 +20,18 @@ export default (history, done) => {
         state: null,
         key: expect.any(String)
       });
+
+      history.replace('/other');
+    },
+    ({ action, location }) => {
+      expect(action).toBe('REPLACE');
+      expect(location).toMatchObject({
+        pathname: '/other',
+        search: '',
+        hash: '',
+        state: null,
+        key: expect.any(String)
+      });
     }
   ];
 

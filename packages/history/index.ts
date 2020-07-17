@@ -479,7 +479,9 @@ export function createBrowserHistory(
   function getNextLocation(to: To, state: State = null): Location {
     return readOnly<Location>({
       ...location,
-      ...(typeof to === 'string' ? parsePath(to) : to),
+      ...(typeof to === 'string'
+        ? { search: '', hash: '', ...parsePath(to) }
+        : to),
       state,
       key: createKey()
     });
@@ -724,7 +726,9 @@ export function createHashHistory(
   function getNextLocation(to: To, state: State = null): Location {
     return readOnly<Location>({
       ...location,
-      ...(typeof to === 'string' ? parsePath(to) : to),
+      ...(typeof to === 'string'
+        ? { search: '', hash: '', ...parsePath(to) }
+        : to),
       state,
       key: createKey()
     });
@@ -920,7 +924,9 @@ export function createMemoryHistory(
   function getNextLocation(to: To, state: State = null): Location {
     return readOnly<Location>({
       ...location,
-      ...(typeof to === 'string' ? parsePath(to) : to),
+      ...(typeof to === 'string'
+        ? { search: '', hash: '', ...parsePath(to) }
+        : to),
       state,
       key: createKey()
     });
