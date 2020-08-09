@@ -1080,6 +1080,12 @@ export function createPath({
   search = '',
   hash = ''
 }: PartialPath) {
+  if (search && search[0] !== '?'){
+    search = '?' + search;
+  }
+  if (hash && hash[0] !== '#'){
+    hash = '#' + hash;
+  }
   return pathname + search + hash;
 }
 
