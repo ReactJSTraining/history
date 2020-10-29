@@ -118,50 +118,12 @@ export interface Location<S extends State = State> extends Path {
 /**
  * A partial Path object that may be missing some properties.
  */
-export interface PartialPath {
-  /**
-   * The URL pathname, beginning with a /.
-   *
-   * @see https://github.com/ReactTraining/history/tree/master/docs/api-reference.md#location.pathname
-   */
-  pathname?: Pathname;
-
-  /**
-   * The URL search string, beginning with a ?.
-   *
-   * @see https://github.com/ReactTraining/history/tree/master/docs/api-reference.md#location.search
-   */
-  search?: Search;
-
-  /**
-   * The URL fragment identifier, beginning with a #.
-   *
-   * @see https://github.com/ReactTraining/history/tree/master/docs/api-reference.md#location.hash
-   */
-  hash?: Hash;
-}
+export type PartialPath = Partial<Path>;
 
 /**
  * A partial Location object that may be missing some properties.
  */
-export interface PartialLocation<S extends State = State> extends PartialPath {
-  /**
-   * An object of arbitrary data associated with this location.
-   *
-   * @see https://github.com/ReactTraining/history/tree/master/docs/api-reference.md#location.state
-   */
-  state?: S;
-
-  /**
-   * A unique string associated with this location. May be used to safely store
-   * and retrieve data in some other storage API, like `localStorage`.
-   *
-   * Note: This value is always "default" on the initial location.
-   *
-   * @see https://github.com/ReactTraining/history/tree/master/docs/api-reference.md#location.key
-   */
-  key?: Key;
-}
+export type PartialLocation = Partial<Location>;
 
 /**
  * A change to the current location.
