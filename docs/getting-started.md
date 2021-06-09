@@ -91,7 +91,7 @@ Additionally, memory history provides `history.index` that tells you the current
 You can listen for changes to the current location using `history.listen`:
 
 ```js
-history.listen(({ action, location }) => {
+history.listen(({ location, action }) => {
   console.log(
     `The current URL is ${location.pathname}${location.search}${location.hash}`
   );
